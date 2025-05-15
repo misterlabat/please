@@ -1,3 +1,4 @@
+/* keep your existing styles */
 body {
     font-family: Arial, sans-serif;
     text-align: center;
@@ -7,6 +8,16 @@ body {
     position: relative;
 }
 
+/* prank button centered & always on top */
+#prankButton {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000000; /* way above everything */
+}
+
+/* keep your existing button styles */
 button {
     padding: 15px 30px;
     background-color: #FF5733;
