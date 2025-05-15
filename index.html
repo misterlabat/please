@@ -1,15 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prank Website</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>Chaotic Prank</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      font-family: sans-serif;
+    }
+
+    #prankButton {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 12px 24px;
+      font-size: 18px;
+      font-weight: bold;
+      background-color: red;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      z-index: 999999999;
+      cursor: pointer;
+      animation: pulse 1s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+  </style>
 </head>
 <body>
-    <h1>Welcome to the Prank Website!</h1>
-    <button id="prankButton">Click Me</button>
-
-    <script src="script.js"></script>
+  <button id="prankButton">DO NOT CLICK</button>
+  <script src="chaos.js"></script>
 </body>
 </html>
